@@ -2,6 +2,7 @@
 fish_add_path /opt/homebrew/bin
 fish_add_path $HOME/.asdf/shims
 fish_add_path $HOME/.local/bin
+fish_add_path /opt/homebrew/opt/libpq/bin
 
 # Set environment variables
 set -gx EDITOR nvim
@@ -17,8 +18,6 @@ end
 starship init fish | source
 fzf --fish | source
 zoxide init fish | source
-
-thefuck --alias | source
 
 # Source asdf
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
@@ -41,50 +40,50 @@ end
 # pnpm end
 
 # Improved history management
-function clean_fish_history
-    # Common commands to remove
-    set -l common_cmds z cd gss exit ls ll la pwd clear history
+# function clean_fish_history
+#     # Common commands to remove
+#     set -l common_cmds z cd gss exit ls ll la pwd clear history
 
-    # Potentially sensitive commands to remove
-    set -l sensitive_cmds \
-        # Commands potentially containing passwords or tokens
-        'sudo*' 'passwd*' '*password*' '*token*' '*api_key*' \
-        # SSH commands
-        'ssh*' 'scp*' \
-        # Git commands that might include sensitive info
-        'git push*' 'git commit*' 'git config*' \
-        # Commands accessing sensitive files
-        'cat *id_rsa*' 'cat *.pem' 'cat *.key' 'cat *config*' \
-        # Database access commands
-        'mysql*' 'psql*' 'mongo*' 'redis-cli*' \
-        # Network-related commands
-        'curl*' 'wget*' 'netstat*' 'ifconfig*' 'ip a*' \
-        # Commands that might reveal infrastructure
-        'aws*' 'gcloud*' 'az*' 'docker*' 'kubectl*' \
-        # Other potentially sensitive commands
-        'env' 'set' 'export'
+#     # Potentially sensitive commands to remove
+#     set -l sensitive_cmds \
+#         # Commands potentially containing passwords or tokens
+#         'sudo*' 'passwd*' '*password*' '*token*' '*api_key*' \
+#         # SSH commands
+#         'ssh*' 'scp*' \
+#         # Git commands that might include sensitive info
+#         'git push*' 'git commit*' 'git config*' \
+#         # Commands accessing sensitive files
+#         'cat *id_rsa*' 'cat *.pem' 'cat *.key' 'cat *config*' \
+#         # Database access commands
+#         'mysql*' 'psql*' 'mongo*' 'redis-cli*' \
+#         # Network-related commands
+#         'curl*' 'wget*' 'netstat*' 'ifconfig*' 'ip a*' \
+#         # Commands that might reveal infrastructure
+#         'aws*' 'gcloud*' 'az*' 'docker*' 'kubectl*' \
+#         # Other potentially sensitive commands
+#         'env' 'set' 'export'
 
-    # Remove common commands
-    for cmd in $common_cmds
-        history delete --case-sensitive --exact --yes $cmd
-    end
+#     # Remove common commands
+#     for cmd in $common_cmds
+#         history delete --case-sensitive --exact --yes $cmd
+#     end
 
-    # Remove sensitive commands
-    for pattern in $sensitive_cmds
-        history delete --case-sensitive --contains --yes $pattern
-    end
+#     # Remove sensitive commands
+#     for pattern in $sensitive_cmds
+#         history delete --case-sensitive --contains --yes $pattern
+#     end
 
-    # Limit history to last 1000 items
-    set -l overflow (math (count (history search --show-time --max-count=0 '')) - 1000)
-    if test $overflow -gt 0
-        history delete --exact --case-sensitive --yes (history search --show-time --max-count=$overflow '' | string split ' ' -f3-)
-    end
-end
+#     # Limit history to last 1000 items
+#     set -l overflow (math (count (history search --show-time --max-count=0 '')) - 1000)
+#     if test $overflow -gt 0
+#         history delete --exact --case-sensitive --yes (history search --show-time --max-count=$overflow '' | string split ' ' -f3-)
+#     end
+# end
 
 # Run history cleanup on shell exit automatically
-function on_exit --on-event fish_exit
-    clean_fish_history
-end
+# function on_exit --on-event fish_exit
+#     clean_fish_history
+# end
 
 # Optionally, you can also clean history periodically or on shell startup
 # Uncomment the following line to clean history on shell startup

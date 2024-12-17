@@ -1,20 +1,25 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = """
-[](color_orange)\
+format = "$character"
+
+right_format = """
+[░▒▓](color_orange)\
 $os\
-[](bg:color_yellow fg:color_orange)\
+[](bg:color_yellow fg:color_orange)\
 $directory\
-[](fg:color_yellow bg:color_aqua)\
+[](fg:color_yellow bg:color_aqua)\
 $git_branch\
 $git_status\
-[](fg:color_aqua bg:color_blue)\
-[](fg:color_blue bg:color_bg3)\
+[](fg:color_aqua bg:color_blue)\
+$python\
+$rust\
+$golang\
+[](fg:color_blue bg:color_bg3)\
 $conda\
-[](fg:color_bg3 bg:color_bg1)\
-$time\
-[ ](fg:color_bg1)\
-$line_break$character"""
+[](fg:color_bg3 bg:color_bg1)\
+$cmd_duration\
+[ ](fg:color_bg1)\
+"""
 
 palette = 'gruvbox_dark'
 
@@ -77,6 +82,13 @@ format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
 [git_status]
 style = "bg:color_aqua"
 format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
 
 [nodejs]
 symbol = ""
@@ -127,20 +139,25 @@ format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
 style = "bg:color_bg3"
 format = '[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)'
 
+[cmd_duration]
+min_time = 2000
+style = "bg:color_bg1"
+format = '[[  $duration ](fg:color_fg0 bg:color_bg1)]($style)'
+
 [time]
 disabled = true
 time_format = "%R"
 style = "bg:color_bg1"
-format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
 
 [line_break]
 disabled = true
 
 [character]
 disabled = false
-success_symbol = '[](bold fg:color_green)'
-error_symbol = '[](bold fg:color_red)'
-vimcmd_symbol = '[](bold fg:color_green)'
+success_symbol = "[❯](red)[❯](yellow)[❯](green)"
+error_symbol = "[❯](red)[❯](yellow)[❯](green)"
+vimcmd_symbol = '[❮](green)[❮](yellow)[❮](red)'
 vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
 vimcmd_replace_symbol = '[](bold fg:color_purple)'
 vimcmd_visual_symbol = '[](bold fg:color_yellow)'
