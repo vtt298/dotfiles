@@ -318,13 +318,13 @@ load_plugins {
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "catppuccin-macchiato"
+theme "gruvbox-dark"
 
 // The name of the default layout to load on startup
 // Default: "default"
 // (Requires restart)
 //
-// default_layout "compact"
+default_layout "compact"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
