@@ -1,12 +1,15 @@
-# Add common paths
-fish_add_path /opt/homebrew/bin
-fish_add_path $HOME/.asdf/shims
-fish_add_path $HOME/.local/bin
-fish_add_path /opt/homebrew/opt/libpq/bin
-
 # Set environment variables
 set -gx EDITOR nvim
 set -gx XDG_CONFIG_HOME $HOME/.config
+set -gx GOENV_ROOT $HOME/.goenv
+
+# Add common paths
+fish_add_path /opt/homebrew/bin
+fish_add_path $HOME/.local/bin
+fish_add_path /opt/homebrew/opt/libpq/bin
+fish_add_path $HOME/.local/bin
+fish_add_path $GOENV_ROOT/bin
+
 # set -gx STARSHIP_CONFIG $HOME/startship.toml
 
 # Change to home directory in interactive sessions
@@ -18,9 +21,9 @@ end
 starship init fish | source
 fzf --fish | source
 zoxide init fish | source
-
-# Source asdf
-source /opt/homebrew/opt/asdf/libexec/asdf.fish
+mise activate fish | source
+source "$HOME/.cargo/env.fish"
+source (goenv init -|psub)
 
 # Source aliases if the file exists
 if test -f ~/.config/fish/alias.fish
@@ -88,3 +91,7 @@ end
 # Optionally, you can also clean history periodically or on shell startup
 # Uncomment the following line to clean history on shell startup
 # clean_fish_history
+
+if test -z "$ZELLIJ"
+  zellij
+end

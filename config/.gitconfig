@@ -28,3 +28,5 @@
     navigate = true    # use n and N to move between diff sections
     side-by-side = true
     dark = true
+[url "git@github.com:"]
+	insteadof = https://github.com/

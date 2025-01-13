@@ -59,3 +59,4 @@ workspace/
 .babel.json
 .emacs.d/auto-save-list
 .emacs.d/elpa
+automatic_backups
