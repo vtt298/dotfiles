@@ -1,14 +1,12 @@
 # Set environment variables
 set -gx EDITOR nvim
 set -gx XDG_CONFIG_HOME $HOME/.config
-set -gx GOENV_ROOT $HOME/.goenv
 
 # Add common paths
 fish_add_path /opt/homebrew/bin
 fish_add_path $HOME/.local/bin
 fish_add_path /opt/homebrew/opt/libpq/bin
 fish_add_path $HOME/.local/bin
-fish_add_path $GOENV_ROOT/bin
 
 # set -gx STARSHIP_CONFIG $HOME/startship.toml
 
@@ -23,16 +21,15 @@ fzf --fish | source
 zoxide init fish | source
 mise activate fish | source
 source "$HOME/.cargo/env.fish"
-source (goenv init -|psub)
 
 # Source aliases if the file exists
 if test -f ~/.config/fish/alias.fish
-    source ~/.config/fish/alias.fish
+  source ~/.config/fish/alias.fish
 end
 
 # Source local config if it exists
 if test -f ~/.config/fish/config.local.fish
-    source ~/.config/fish/config.local.fish
+  source ~/.config/fish/config.local.fish
 end
 
 # pnpm
